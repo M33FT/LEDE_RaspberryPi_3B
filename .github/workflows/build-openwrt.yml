@@ -75,14 +75,14 @@ jobs:
       run: cd openwrt && ./scripts/feeds install -a
 
     - name: 下载包文件
-      working-directory: ./lede
+      working-directory: ./openwrt
       run: |
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
     - name: bypass
-      working-directory: ./lede
+      working-directory: ./openwrt
       run: |
         find package/*/ feeds/*/ -maxdepth 2 -path "*luci-app-bypass/Makefile" | xargs -i sed -i 's/shadowsocksr-libev-ssr-redir/shadowsocksr-libev-alt/g' {}
         find package/*/ feeds/*/ -maxdepth 2 -path "*luci-app-bypass/Makefile" | xargs -i sed -i 's/shadowsocksr-libev-ssr-server/shadowsocksr-libev-server/g' {}
