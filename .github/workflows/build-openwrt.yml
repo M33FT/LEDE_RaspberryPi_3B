@@ -80,6 +80,13 @@ jobs:
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        
+    - name: 自定义安装源
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
+        git clone https://github.com/kenzok8/litte.git package/litte
+        git clone https://github.com/kenzok8/small.git package/small
 
     - name: bypass
       working-directory: ./openwrt
